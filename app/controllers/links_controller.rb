@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :edit, :update, :destroy]
+  before_action :set_link, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!, except: [:index, :show]
 
   # GET /links(.json)
@@ -59,6 +59,19 @@ class LinksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def upvote
+    @link.upvote_by current_user
+    redirect_to :back, notice: 'Link was successfully upvoted.'
+    # redirect_to @link, notice: 'Link was successfully upvoted.'
+  end
+
+  def downvote
+    @link.downvote_by current_user
+    redirect_to :back, notice: 'Link was successfully downvoted.'
+    # redirect_to @link, notice: 'Link was successfully downvoted.'
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
