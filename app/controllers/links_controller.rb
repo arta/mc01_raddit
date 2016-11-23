@@ -9,11 +9,13 @@ class LinksController < ApplicationController
 
   # GET /links/1(.json)
   def show
+    # .new aliases .build
+    @comment = @link.comments.new # get field_with_errors in <%= form_for [@link, @comment] ..
   end
 
   # GET /links/new
   def new
-    @link = current_user.links.build
+    @link = current_user.links.new
     # @link = Link.new
   end
 
@@ -23,8 +25,8 @@ class LinksController < ApplicationController
 
   # POST /links(.json)
   def create
-    @link = current_user.links.build( link_params )
-    # @link = Link.new(link_params)
+    @link = current_user.links.new( link_params )
+    # @link = Link.new( link_params )
     # @link.user = current_user
 
     respond_to do |format|

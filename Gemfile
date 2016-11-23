@@ -34,7 +34,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# 11-22-16:
+gem 'record_tag_helper', '~> 1.0' # use: <%= div_for(comment) do %> ..
+
 # 11-21-16:
+gem 'simple_form', '~> 3.3', '>= 3.3.1'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 

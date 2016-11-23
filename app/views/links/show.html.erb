@@ -1,5 +1,8 @@
 <div class="page-header">
-  <h1><a href="<%= @link.url %>"><%= @link.title %></a><br> <small>Submitted by <%= @link.user.email %></small></h1>
+  <h1>
+    <a href="<%= @link.url %>"><%= @link.title %></a><br>
+    <small>Submitted by <%= @link.user.email %></small>
+  </h1>
 </div>
 
 <div class="btn-group">
@@ -19,22 +22,37 @@
   <% end %>
 </div>
 
-<% if @link.user == current_user -%>
+<% if @link.user == current_user %>
 	<div class="btn-group">
 		<%= link_to 'Edit', edit_link_path(@link), class: "btn btn-default" %>
 		<%= link_to 'Destroy', @link, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
 	</div>
 <% end %>
 
-<% if false %>
-  <h3 class="comments_title">
-    <%= @link.comments.count %> Comments
-  </h3>
+<h3 class="comments_title"><%= pluralize( @link.comments.count, 'Comment' ) %></h3>
 
-  <div id="comments">
-    <%= render :partial => @link.comments %>
-  </div>
-  <%= simple_form_for [@link, Comment.new]  do |f| %>
+<div id="comments">
+  <%= render @link.comments.reject( &:new_record? ) %> <!-- the Rails way?! -->
+  <%#= render :partial => @link.comments %>
+</div>
+
+
+<!-- form_for nested resource (Comments nested inside Links) -->
+<!-- http://stackoverflow.com/questions/3938979/how-do-i-display-error-messages-for-nested-resource-validations -->
+<% if user_signed_in? %>
+  <%= form_for [@link, @comment] do |f| %> <!-- @link.comments.new in controller for field_with_errors -->
+    <% if @comment.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+        <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
     <div class="field">
       <%= f.text_area :body, class: "form-control" %>
     </div>
@@ -43,22 +61,13 @@
   <% end %>
 <% end %>
 
-
-
-
 <% if false %>
-<!-- <p id="notice"><%= notice %></p> -->
-
-<p>
-  <strong>Title:</strong>
-  <%= @link.title %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @link.url %>
-</p>
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+  <!-- form_for nested resource (Commented nested under a Link) -->
+  <%= form_for [@link, Comment.new] do |f| %>
+    <div class="field">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+    <br>
+    <%= f.submit "Add Comment", class: "btn btn-primary" %>
+  <% end %>
 <% end %>
