@@ -2,12 +2,11 @@
   <div class="link row clearfix">
     <h2>
       <%= link_to link.title, link %><br>
-      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by <%= link.user.email %></small>
+      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> ago by <%= link.user.name %></small>
     </h2>
 
     <div class="btn-group">
       <%= link_to 'Visit link', link.url, class: 'btn btn-default btn-sm' %>
-      <!-- <a class="btn btn-default btn-sm" href="<%= link.url %>">Visit Link</a> -->
       <%= link_to like_link_path(link), method: :put, class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-chevron-up"></span>
         Upvote
