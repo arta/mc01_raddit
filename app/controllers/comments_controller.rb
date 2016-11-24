@@ -16,11 +16,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     @comment = Comment.find( params[:id] )
-    # @link = @comment.link
     @comment.destroy
 
     redirect_to request.referer, notice: 'Comment was successfully destroyed.'
-    # redirect_to @link, notice: 'Comment was successfully destroyed.'
   end
 
   private

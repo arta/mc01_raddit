@@ -64,13 +64,17 @@ class LinksController < ApplicationController
 
   def upvote
     @link.upvote_by current_user
-    redirect_to :back, notice: 'Link was successfully upvoted.'
+    redirect_to request.referer || root_path, notice: 'Link was successfully upvoted.'
+    # redirect_back fallback_location: root_path, notice: 'Link was successfully upvoted.'
+    # redirect_to :back, notice: 'Link was successfully upvoted.'
     # redirect_to @link, notice: 'Link was successfully upvoted.'
   end
 
   def downvote
     @link.downvote_by current_user
-    redirect_to :back, notice: 'Link was successfully downvoted.'
+    redirect_to request.referer || root_path, notice: 'Link was successfully downvoted.'
+    # redirect_back fallback_location: root_path, notice: 'Link was successfully downvoted.'
+    # redirect_to :back, notice: 'Link was successfully downvoted.'
     # redirect_to @link, notice: 'Link was successfully downvoted.'
   end
 
