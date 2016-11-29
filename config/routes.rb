@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     member do
       put 'like',     to: 'links#upvote'   # PUT /links/:id/like
       put 'dislike',  to: 'links#downvote' # PUT /links/:id/dislike
-      # Handle browser back button to failed comment post. Nice!:
-      #   (i.e. backtracing after posting to /links/:link_id/comments had errors)
+      # Handle browser back button (get) to failed link comment post. Nice!
+      #   ( = backtracing after posting to /links/:link_id/comments had errors )
       get 'comments', to: 'links#show'     # GET /links/:id/comments
     end
     resources :comments, only: :create     # POST /links/:link_id/comments
