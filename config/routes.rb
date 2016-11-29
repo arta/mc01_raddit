@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   devise_for :users
   resources :links do
     member do
-      put 'like',     to: 'links#upvote'   # PUT /links/:id/like
-      put 'dislike',  to: 'links#downvote' # PUT /links/:id/dislike
+      put 'like',     to: 'links#upvote'   # => like_link_path( @link )     => PUT /links/:id/like
+      put 'dislike',  to: 'links#downvote' # => dislike_link_path( @link )  => PUT /links/:id/dislike
       # Handle browser back button (get) to failed link comment post. Nice!
       #   ( = backtracing after posting to /links/:link_id/comments had errors )
-      get 'comments', to: 'links#show'     # GET /links/:id/comments
+      #   ( = the path helper is actually never used in the app )
+      get 'comments', to: 'links#show'     # => comments_link_path( @link ) => GET /links/:id/comments
     end
     resources :comments, only: :create     # POST /links/:link_id/comments
   end
-  resources :comments, only: :destroy      # DELETE /comments/:id
+  resources :comments, only: :destroy      # => DELETE link_path( @link )   => DELETE /comments/:id
 
   root 'links#index'
 end
