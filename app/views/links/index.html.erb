@@ -47,12 +47,12 @@
 
           <% if link.user == current_user %>
           <%# if user_signed_in? %>
-            <!-- CAREFUL !!! -->
-            <!-- As features are added, do old records have the newly required data ??? -->
             <td><%= link_to 'Edit', edit_link_path(link) %></td>
             <td><%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
 
+          <!-- CAREFUL !!! -->
+          <!-- As features are added (User), do old records have the newly required data (link.user association)??? -->
           <!-- <td><%#= "link.user: #{link.user.inspect}" %></td> -->
           <!-- <td><%#= "current_user: #{current_user.inspect}" %></td> -->
           <!-- <td><%#= "link.user == current_user: #{link.user == current_user}" %></td> -->
