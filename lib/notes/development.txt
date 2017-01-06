@@ -1,0 +1,12 @@
+###############################################################################
+# 1-6-17: #####################################################################
+• Displaying collection of nested resources on parent's show page followed
+  with a form for a new nested resource
+: Not sure how's the Rail's way to get rid of the invalid/empty .new_record?
+  built for the form.
+: My way on /links/show.html.erb:
+
+    <div id="comments">
+      <%= render @link.comments.reject( &:new_record? ) %>
+    </div>
+###############################################################################
